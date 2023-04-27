@@ -5,10 +5,13 @@ import com.example.Shopping.entity.Member;
 import com.example.Shopping.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,11 +61,32 @@ public class MemberController {
     public String login() {
         return "sign/sign-in";
     }
+
+    @GetMapping("/sign-in/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
+        log.info("model: {}", model);
+        return "sign/sign-in";
+    }
+
+    @GetMapping("/test")
+    public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
+        log.info("user: {}", user);
+        log.info("model: {}", model);
+        return "sign/sign-in";
+    }
+//    @PostMapping("/sign-in")
+//    public String login(@RequestParam String id, @RequestParam String password) {
+//        // 로그인 처리 로직 작성
+//        return "redirect:/"; // 로그인 후 메인 페이지로 이동
+//    }
+
 //    @PostMapping("/login")
 //    public ResponseEntity<String> login(@RequestBody MemberDto memberDto) {
-//        log.info("memberDto: {}", memberDto);
 //        String id = memberDto.getId();
 //        String password = memberDto.getPassword();
+//        log.info("id: {}", id);
+//        log.info("password: {}", password);
 //        if (memberService.isPasswordMatch(id, password)) {
 //            return ResponseEntity.ok("success");
 //        } else {

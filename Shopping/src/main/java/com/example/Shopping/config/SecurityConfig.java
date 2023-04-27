@@ -11,6 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.servlet.DispatcherType;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -20,7 +24,8 @@ public class SecurityConfig {
                 .loginPage("/sign/sign-in")
                 .defaultSuccessUrl("/")
                 .usernameParameter("id")
-                .failureUrl("/sign/sign-in?error")
+                .passwordParameter("password")
+                .failureUrl("/sign/sign-in/error")
                 .permitAll()
                 .and()
                 .logout()
@@ -39,7 +44,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
         ;
 
-        http.csrf().disable();
+        http.csrf().disable().cors().disable();
 
         return http.build();
     }
@@ -49,38 +54,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig {
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//                .loginPage("/sign/sign-in")
-//                .defaultSuccessUrl("/")
-//                .usernameParameter("id")
-//                .failureUrl("/sign/sign-in?error")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/sign/logout"))
-//                .logoutSuccessUrl("/")
-//                .and()
-//                .authorizeRequests()
-//                .mvcMatchers("/css/**", "/js/**", "/img/**", "/assets/**").permitAll()
-//                .mvcMatchers("/", "/fragments/**", "/item/**", "/sign/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-//                .and()
-//                .csrf().disable();
-//
-//        return http.build();
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//}

@@ -21,13 +21,8 @@
         <!-- Section-->
         <section class="py-5 mt-5">
             <main class="form-signin w-100 m-auto">
-                <form class="mt-5" th:action="@{/sign/sign-in}" method="post">
+                <form class="mt-5" action="/sign/sign-in" method="post">
                     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            사용자ID 또는 비밀번호를 확인해 주세요.
-                        </div>
-                    </div>
                     <div class="form-floating">
                         <input type="text" class="form-control" id="id" name="id" placeholder="ID">
                         <label for="id">ID</label>
@@ -36,6 +31,7 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         <label for="password">Password</label>
                     </div>
+                    <p th:if="${loginErrorMsg}" class="alert alert-danger" th:text="${loginErrorMsg}"></p>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
                 </form>
               </main>

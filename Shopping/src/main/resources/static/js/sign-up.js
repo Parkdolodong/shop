@@ -1,6 +1,6 @@
 $("#id").keyup(function () {
   var id = $(this).val();
-  if (id == "") {
+  if (id == " ") {
     $("#id").attr("class", "form-control mb-2");
     $("#id_fail").hide();
     $("#id_success").hide();

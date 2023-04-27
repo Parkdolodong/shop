@@ -41,7 +41,6 @@ public class MemberService implements UserDetailsService {
         memberAddress = memberAddressRepository.save(memberAddress);
         Member member = Member.createMember(memberDto, memberAddress, passwordEncoder);
         member = memberRepository.save(member);
-        log.info("member: {}", member);
         return member;
     }
 
@@ -65,7 +64,18 @@ public class MemberService implements UserDetailsService {
      */
 //    public boolean isPasswordMatch(String id, String password) {
 //        Optional<Member> memberOpt = memberRepository.findById(id);
+//        log.info("password: {}", passwordEncoder.matches(password, memberOpt.get().getPassword()));
 //        return memberOpt.isPresent() && passwordEncoder.matches(password, memberOpt.get().getPassword());
+//    }
+//    public boolean login(String id, String password) {
+//        Optional<Member> member = memberRepository.findById(id);
+//        if (member.isPresent() && passwordEncoder.matches(password, member.get().getPassword())) {
+//            // 로그인 성공
+//            return true;
+//        } else {
+//            // 로그인 실패
+//            return false;
+//        }
 //    }
 
     /**
@@ -86,6 +96,7 @@ public class MemberService implements UserDetailsService {
         return User.builder()
                 .username(member.get().getId())
                 .password(member.get().getPassword())
+                .roles(member.get().getRole().toString())
                 .build();
     }
 }

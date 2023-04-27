@@ -1,5 +1,6 @@
 package com.example.Shopping.entity;
 
+import com.example.Shopping.constant.Role;
 import com.example.Shopping.dto.MemberDto;
 import com.example.Shopping.entity.listener.DateListener;
 import com.example.Shopping.entity.listener.LibraryEntityListener;
@@ -31,6 +32,9 @@ public class Member implements DateListener {
     @JoinColumn(name = "member_address", referencedColumnName = "idx")
     private MemberAddress memberAddress;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -43,6 +47,7 @@ public class Member implements DateListener {
         member.setEmail(memberDto.getEmail());
         member.setPhoneNumber(memberDto.getPhoneNumber());
         member.setMemberAddress(memberAddress);
+        member.setRole(Role.ADMIN);
         return member;
     }
 }
