@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +63,13 @@ public class MemberController {
         return "sign/sign-in";
     }
 
+    @GetMapping("/username")
+    @ResponseBody
+    public String currentUserName(Principal principal) {
+        log.info("username: {}", principal);
+        return principal.getName();
+    }
+
     @GetMapping("/sign-in/error")
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
@@ -69,12 +77,6 @@ public class MemberController {
         return "sign/sign-in";
     }
 
-    @GetMapping("/test")
-    public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
-        log.info("user: {}", user);
-        log.info("model: {}", model);
-        return "sign/sign-in";
-    }
 //    @PostMapping("/sign-in")
 //    public String login(@RequestParam String id, @RequestParam String password) {
 //        // 로그인 처리 로직 작성

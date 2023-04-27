@@ -93,6 +93,8 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException(id);
         }
 
+        log.info("member: {}", member);
+
         return User.builder()
                 .username(member.get().getId())
                 .password(member.get().getPassword())
