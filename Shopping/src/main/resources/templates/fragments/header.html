@@ -35,8 +35,7 @@
 <!--                    </button>-->
 <!--                </form>-->
 <!--            </div>-->
-            <div sec:authorize="isAuthenticated()">
-                <div class="btn-group">
+                <div class="btn-group" sec:authorize="isAuthenticated()">
                     <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
                             type="button" onclick="location.href='#' ">
                         <i class="bi bi-person-fill me-1"></i>
@@ -51,7 +50,6 @@
                         <li><a class="dropdown-item" id="signOut" type="button" onclick="location.href='/sign/logout'">로그아웃</a></li>
                     </ul>
                 </div>
-            </div>
 <!--            <div th:if="${session.user != null}">-->
 <!--                <div class="btn-group">-->
 <!--                    <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"-->

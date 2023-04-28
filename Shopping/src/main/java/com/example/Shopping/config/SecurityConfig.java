@@ -31,18 +31,16 @@ public class SecurityConfig {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/sign/logout"))
                 .logoutSuccessUrl("/")
-                .and()
-        ;
+                .and();
 
         http.authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/img/**", "/assets/**").permitAll()
-                .mvcMatchers("/", "/fragments/**", "/item/**", "/sign/**").permitAll()
-                .anyRequest().authenticated()
-        ;
+                .mvcMatchers("/", "/fragments/**", "/sign/**").permitAll()
+                .mvcMatchers("/item/**").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated();
 
         http.exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-        ;
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
         http.csrf().disable().cors().disable();
 

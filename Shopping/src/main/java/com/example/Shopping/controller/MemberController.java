@@ -63,6 +63,9 @@ public class MemberController {
         return "sign/sign-in";
     }
 
+    /**
+    *  로그인 확인
+    */
     @GetMapping("/username")
     @ResponseBody
     public String currentUserName(Principal principal) {
@@ -70,6 +73,10 @@ public class MemberController {
         return principal.getName();
     }
 
+
+    /**
+     * 로그인 에러 알림
+     */
     @GetMapping("/sign-in/error")
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
@@ -77,24 +84,6 @@ public class MemberController {
         return "sign/sign-in";
     }
 
-//    @PostMapping("/sign-in")
-//    public String login(@RequestParam String id, @RequestParam String password) {
-//        // 로그인 처리 로직 작성
-//        return "redirect:/"; // 로그인 후 메인 페이지로 이동
-//    }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody MemberDto memberDto) {
-//        String id = memberDto.getId();
-//        String password = memberDto.getPassword();
-//        log.info("id: {}", id);
-//        log.info("password: {}", password);
-//        if (memberService.isPasswordMatch(id, password)) {
-//            return ResponseEntity.ok("success");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디나 비밀번호가 일치하지 않습니다.");
-//        }
-//    }
 
     /**
      * 실시간 아이디 체크

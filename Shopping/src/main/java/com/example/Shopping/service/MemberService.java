@@ -59,24 +59,6 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    /**
-     * 로그인 함수
-     */
-//    public boolean isPasswordMatch(String id, String password) {
-//        Optional<Member> memberOpt = memberRepository.findById(id);
-//        log.info("password: {}", passwordEncoder.matches(password, memberOpt.get().getPassword()));
-//        return memberOpt.isPresent() && passwordEncoder.matches(password, memberOpt.get().getPassword());
-//    }
-//    public boolean login(String id, String password) {
-//        Optional<Member> member = memberRepository.findById(id);
-//        if (member.isPresent() && passwordEncoder.matches(password, member.get().getPassword())) {
-//            // 로그인 성공
-//            return true;
-//        } else {
-//            // 로그인 실패
-//            return false;
-//        }
-//    }
 
     /**
      * 중복되는 아이디 찾는 함수
