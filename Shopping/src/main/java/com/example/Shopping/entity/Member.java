@@ -2,41 +2,34 @@ package com.example.Shopping.entity;
 
 import com.example.Shopping.constant.Role;
 import com.example.Shopping.dto.MemberDto;
-import com.example.Shopping.entity.listener.DateListener;
-import com.example.Shopping.entity.listener.LibraryEntityListener;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @Entity
-@EntityListeners(value = { LibraryEntityListener.class })
-public class Member implements DateListener {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    private String id;
-    private String password;
-    private String name;
-    private String email;
-    private String phoneNumber;
+    private String id; //아이디
+    private String password; //비밀번호
+    private String name; //이름
+    private String email; //이메일
+    private String phoneNumber; //전화번호
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_address", referencedColumnName = "idx")
-    private MemberAddress memberAddress;
+    @JoinColumn(name = "member_address")
+    private MemberAddress memberAddress; //상세주소
 
     @Enumerated(EnumType.STRING)
-    private Role role;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Role role; // 관리자 or 사용자
 
     public static Member createMember(MemberDto memberDto, MemberAddress memberAddress, PasswordEncoder passwordEncoder){
         Member member = new Member();
